@@ -48,10 +48,10 @@ def login():
         db = get_db()
         error = None
         user = db.execute(
-            'SELECT * FROM user WHERE user = ?', (username,)
+            'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
 
-        if username is None:
+        if user is None:
             error = 'Incorrect username.'
         elif not check_password_hash(user['password'], password):
             error = 'Incorrect password.'
@@ -81,7 +81,7 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return render_template(url_for('index'))
+    return redirect(url_for('index'))
 
 
 def login_required(view):
