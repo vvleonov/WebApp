@@ -1,5 +1,5 @@
-FROM tiangolo/uwsgi-nginx:python3.8-alpine
+FROM nginx:alpine
 
-COPY ./requirements.txt /var/www/requirements.txt
-RUN apk --update add git && \
+COPY ./requirements.txt requirements.txt
+RUN apk --update add git python3-minimal python3-setuptools && \
 pip install -r /var/www/requirements.txt
